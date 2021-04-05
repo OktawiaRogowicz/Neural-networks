@@ -34,12 +34,9 @@ def check_number_of_columns(input, weight):
 
 
 def neural_network(input, weight, output_number):
-    output = np.zeros((len(input), len(input[0])))
     if check_number_of_rows(weight, output_number) != 0 \
             or check_number_of_columns(input, weight) != 0:
         raise ValueError
-
-    # t = weight.transpose()
 
     A = input
     B = weight
@@ -47,24 +44,9 @@ def neural_network(input, weight, output_number):
     print(C)
     return C
 
-    # for i in range(output_number):
-    #     for j in range(len(output[i])):
-    #         for k in range(len(input[i])):
-    #             output[i][j] = output[i][j] + input[i][k] * weight[j][k]
-    #     print(output[i])
-    #
-    # return output
-
 
 def deep_neural_network(input, weight, output_number):
-    output = np.zeros((len(weight), len(input), len(input[0])))
-    # if check_number_of_rows(weight, output_number) != 0\
-    #         or check_number_of_columns(input, weight) != 0\
-    #         or check_number_of_layers() != 0:
-    #     raise ValueError
-
     first_layer = input
-
     for i in range(len(weight)):
         A = first_layer
         B = weight[i]
@@ -74,18 +56,6 @@ def deep_neural_network(input, weight, output_number):
 
     print(C)
 
-    # for x in range(len(weight)):
-    #     if x == 0:
-    #         for i in range(output_number+1):
-    #             for j in range(len(output[x][i])):
-    #                 for k in range(len(input[i])):
-    #                     output[x][i][j] = output[x][i][j] + input[i][k] * weight[x][j][k]
-    #     else:
-    #         for i in range(output_number+1):
-    #             for j in range(len(output[x][i])):
-    #                 for k in range(len(input[i])):
-    #                     output[x][i][j] = output[x][i][j] + output[x-1][i][k] * weight[x][j][k]
-    # print(output)
 
 if __name__ == '__main__':
     input = np.array([[8.5, 0.65, 1.2],
