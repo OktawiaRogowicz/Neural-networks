@@ -20,19 +20,20 @@ class NeuralNetwork:
         delta = prediction - self.expected_output[n]
         # print("delta: \n", delta)
         weight_delta = np.outer(delta, self.input[n])
-        self.weights = self.weights - weight_delta * self.alpha
+        self.weights[0] = self.weights[0] - weight_delta * self.alpha
         # print("wd: \n", weight_delta, "\nweights: \n", self.weights)
         # print("error: \n", error, "\n")
+        print(self.weights[0])
         return error
 
     def count_series(self, n):
-        error = 0.0
         for j in range(n):
+            error = 0.0
             for i in range(len(self.input)):
                 error = error + self.one_series(i)
             print(error, "\n")
-            print(error[0] + error[1] + error[2])
-            error = 0.0
+            print(np.sum(error))
+
 
 
 if __name__ == '__main__':

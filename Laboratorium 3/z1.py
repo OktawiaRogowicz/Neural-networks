@@ -10,7 +10,7 @@ class ReLU1:
         for i in range(len(weights)):
             for j in range(len(weights[i])):
                 if weights[i][j] < 0:
-                   weights[i][j] = 0
+                    weights[i][j] = 0
         return weights
 
     def calc(self):
@@ -33,11 +33,11 @@ if __name__ == '__main__':
                       [9.9, 0.8, 0.5],
                       [9.0, 0.9, 1.0]])
     weights = np.array([[[0.1, 0.2, -0.1],
-                    [-0.1, 0.1, 0.9],
-                    [0.1, 0.4, 0.1]],
-                    [[0.3, 1.1, -0.3],
-                     [0.1, 0.2, 0.0],
-                     [0.0, 1.3, 0.1]]])
+                         [-0.1, 0.1, 0.9],
+                         [0.1, 0.4, 0.1]],
+                        [[0.3, 1.1, -0.3],
+                         [0.1, 0.2, 0.0],
+                         [0.0, 1.3, 0.1]]])
 
     r = ReLU1(input, weights)
     r.calc()
