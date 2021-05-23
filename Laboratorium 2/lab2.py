@@ -56,7 +56,6 @@ def fun3(n, input, weights, expected_output, alpha):
     B = weights[0]
     C = A.dot(B.transpose())
     prediction = C
-    # print("C: \n", C, "\n\n")
 
     error = pow(prediction - expected_output[n], 2)
     delta = prediction - expected_output[n]

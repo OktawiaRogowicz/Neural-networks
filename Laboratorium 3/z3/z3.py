@@ -11,6 +11,9 @@ class NeuralNetwork:
         self.input = []
         self.expected_output = []
 
+        self.counter = 0
+        self.matching =0
+
     def add_layer(self, n, weight_min_value, weight_max_value, activation_function):
         # dodaje warstwe n neuronow do sieci
         # + losowanie wag w zakresie
@@ -21,15 +24,6 @@ class NeuralNetwork:
                 layer[i][j] = random.uniform(weight_min_value, weight_max_value)
         self.weights.append(layer)
         self.output_number = n
-
-    def fit(self, input, expected_output):
-        return
-
-    def save_weights(self, file_name):
-        return
-
-    def load_weights(self, file_name):
-        return
 
     def read_images(self, file_name_images):
         file = open(file_name_images, "rb")
@@ -66,6 +60,8 @@ class NeuralNetwork:
         return ba
 
     def file_to_vectors(self, file_name_images, file_name_labels):
+        self.matching = 0
+        self.counter = 0
 
         [baI, quantity, rows, columns] = self.read_images(file_name_images)
         baL = self.read_labels(file_name_labels)
@@ -130,9 +126,8 @@ class NeuralNetwork:
         error = error + layer_2_delta ** 2
 
         if index == index2:
-            print("IT MATCHES! error: ", sum(error))
-        else:
-            print("error: ", sum(error))
+            self.matching += 1
+        self.counter += 1
 
         return error
 
@@ -142,5 +137,6 @@ if __name__ == '__main__':
     nn.add_layer(40, -0.1, 0.1, "reLu")
     nn.add_layer(10, -0.1, 0.1, "reLu")
     nn.file_to_vectors("train-images.idx3-ubyte", "train-labels.idx1-ubyte")
-
+    print("Counter: ", nn.counter, " | Matching: ", nn.matching)
     nn.file_to_vectors("t10k-images.idx3-ubyte", "t10k-labels.idx1-ubyte")
+    print("Counter: ", nn.counter, " | Matching: ", nn.matching)
