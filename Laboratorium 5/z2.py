@@ -21,15 +21,18 @@ class NeuralNetwork:
         self.output_number = input_number
         self.alpha = alpha
 
+        self.kernelCounter = 0
+
         self.secRow = 3
         self.secCol = 3
 
     def add_kernel_filters(self, n, cols, rows, weight_min_value, weight_max_value):
+        self.kernelCounter = n
         layer = np.random.uniform(weight_min_value, weight_max_value, size=(n, cols * rows))
         self.kernels = layer
 
     def add_layer(self, n, weight_min_value, weight_max_value, activation_function):
-        layer = np.random.uniform(weight_min_value, weight_max_value, size=(n, self.output_number))
+        layer = np.random.uniform(weight_min_value, weight_max_value, size=(n, self.output_number * self.kernelCounter))
         self.weights = layer
         self.output_number = n
 
@@ -124,8 +127,9 @@ class NeuralNetwork:
 
         layer_2_delta = values - expected_output
         layer_1_delta = np.dot(layer_2_delta, self.weights)
-        temp = int(len(layer_1_delta) / 2)
-        layer_1_delta = layer_1_delta.reshape(temp, temp)
+        temp1 = int(len(kernel_layer))
+        temp2 = int(len(kernel_layer[0]))
+        layer_1_delta = layer_1_delta.reshape(temp1, temp2)
 
         layer_2_weight_delta = np.dot(layer_2_delta.transpose(), kernel_layer.flatten())
         layer_1_weight_delta = np.dot(layer_1_delta.transpose(), image_sections)
@@ -135,8 +139,9 @@ class NeuralNetwork:
 
         return 0
 
+
 if __name__ == '__main__':
-    nn = NeuralNetwork(784, 0.005)
+    nn = NeuralNetwork(676, 0.005)
 
     # Wersja 1:
     nn.add_kernel_filters(16, 3, 3, -0.01, 0.01)
