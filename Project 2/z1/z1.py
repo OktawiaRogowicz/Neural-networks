@@ -47,6 +47,7 @@ class Word2Vec:
         self.matching = 0
         file = open_file(filename)
         reviews = self.generate_list_from_file(file)
+        print(len(reviews))
         return self.generate_multi_hot_vectors(reviews)
 
     def generate_list_from_file(self, file):
@@ -66,7 +67,7 @@ class Word2Vec:
 
     def generate_multi_hot_vectors(self, reviews):
         self.generate_found_words(reviews)
-        print(self.found_words)
+        # print(self.found_words)
 
         vectors = list()
         for i in range(len(reviews)):
@@ -94,7 +95,7 @@ class Word2Vec:
         for i in range(n):
             for j in range(len(self.matrix)):
                 error = self.predict(self.matrix[j], self.labels[j])
-                print("error: ", error)
+                # print("error: ", error)
 
     def predict(self, input, expected_output):
         error = 0.0
@@ -124,6 +125,7 @@ class Word2Vec:
 
         return error
 
+    # ------------------- ZADANIE 2 -------------------
 
 if __name__ == '__main__':
     wv = Word2Vec()
