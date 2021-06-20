@@ -75,7 +75,8 @@ class Population:
             else:
                 new_copy[i] = child_chromosome1
 
-            self.__segregate_population()
+        self.population = new_copy
+        self.__segregate_population()
 
     def mutate(self):
         self.__mutation_of_one_chromosome(self.population[0])
