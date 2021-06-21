@@ -1,5 +1,6 @@
 import random as rand
 import numpy as np
+import math
 
 
 class Population:
@@ -67,20 +68,23 @@ class Population:
             index2 = rand.choice(index2)
             chromosome2 = self.new_population[index2]
 
-            child_chromosome1 = []
             result = rand.sample(range(0, self.genes_n - 1), 1)
             result = result[0]
 
-            child_chromosome1.extend(chromosome1[:result])
-            child_chromosome1.extend(chromosome2[result:])
+            child_chromosome = []
 
-            self.__mutation_of_one_chromosome(child_chromosome1)
+            child_chromosome.extend(chromosome1[:result])
+            for gene in chromosome2:
+                if gene not in child_chromosome:
+                    child_chromosome.append(gene)
+
+            self.__mutation_of_one_chromosome(child_chromosome)
 
             which_parent = rand.random()
             if which_parent > 0.5:
-                new_copy[index2] = child_chromosome1
+                new_copy[index2] = child_chromosome
             else:
-                new_copy[i] = child_chromosome1
+                new_copy[i] = child_chromosome
 
         for j in range(self.elite_items):
             new_copy.append(self.population[j])
