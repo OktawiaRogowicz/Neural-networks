@@ -1,4 +1,5 @@
 import numpy as np
+import skimage.measure
 
 
 def relu(weights):
@@ -32,7 +33,8 @@ class NeuralNetwork:
         self.kernels = layer
 
     def add_layer(self, n, weight_min_value, weight_max_value, activation_function):
-        layer = np.random.uniform(weight_min_value, weight_max_value, size=(n, self.output_number * self.kernelCounter))
+        layer = np.random.uniform(weight_min_value, weight_max_value,
+                                  size=(n, self.output_number * self.kernelCounter))
         self.weights = layer
         self.output_number = n
 
@@ -111,9 +113,9 @@ class NeuralNetwork:
                 rows = []
                 for a in range(3):
                     row = []
-                    row.append(input[i+a][j])
-                    row.append(input[i+a][j+1])
-                    row.append(input[i+a][j+2])
+                    row.append(input[i + a][j])
+                    row.append(input[i + a][j + 1])
+                    row.append(input[i + a][j + 2])
                     rows.append(row)
                 section = np.concatenate(rows, axis=0)
                 sections.append(section)
@@ -128,9 +130,13 @@ class NeuralNetwork:
 
         layer_2_delta = values - expected_output
         layer_1_delta = np.dot(layer_2_delta, self.weights)
+        layer_1_delta = relu(layer_1_delta)
+
         temp1 = int(len(kernel_layer))
         temp2 = int(len(kernel_layer[0]))
         layer_1_delta = layer_1_delta.reshape(temp1, temp2)
+
+        test = skimage.measure.block_reduce(layer_1_delta, (2, 2), np.max)
 
         l2t = layer_2_delta.reshape((1, -1)).transpose()
         kt = kernel_layer.flatten().reshape((1, -1))
