@@ -25,7 +25,8 @@ class Population:
         a = int("".join(str(i) for i in chromosome[:4]), 2)
         b = int("".join(str(i) for i in chromosome[4:]), 2)
 
-        result = abs(((2 * (a ** 2) + b) / 33.0) - 1)
+        # result = abs(((2 * (a ** 2) + b) / 33.0) - 1)
+        result = 1 / ((abs((2 * (a ** 2) + b) - 33.0)) + 1)
         return result
 
     def print_population(self):
@@ -92,5 +93,6 @@ if __name__ == '__main__':
     p = Population(10, 8)
     p.generate_population()
 
-    p.roulette_wheel_selection()
-    p.create_children()
+    for i in range(10):
+        p.roulette_wheel_selection()
+        p.create_children()

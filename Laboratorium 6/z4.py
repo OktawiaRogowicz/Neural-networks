@@ -29,9 +29,9 @@ class Population:
         self.fitness_sum = sum
 
     def __segregate_population(self):
-        print("PRZED SEGREGACJA: ", [self.__fitness_function(chromosome) for chromosome in self.population])
-        self.population.sort(key=self.__fitness_function, reverse=False)
-        print("PO SEGREGACJI: ", [self.__fitness_function(chromosome) for chromosome in self.population], "\n")
+        print("PRZED SEGREGACJA: ", [1/self.__fitness_function(chromosome) for chromosome in self.population])
+        self.population.sort(key=self.__fitness_function, reverse=True)
+        print("PO SEGREGACJI: ", [1/self.__fitness_function(chromosome) for chromosome in self.population], "\n")
 
     def __fitness_function(self, chromosome):
         sum = 0
@@ -42,7 +42,7 @@ class Population:
                         )
                       ** 0.5)
             sum += result
-        return sum
+        return 1/sum
 
     def __roulette(self):
         pick = rand.uniform(0, self.fitness_sum)

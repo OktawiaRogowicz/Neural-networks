@@ -130,7 +130,7 @@ class NeuralNetwork:
 
         layer_2_delta = values - expected_output
         layer_1_delta = np.dot(layer_2_delta, self.weights)
-        layer_1_delta = relu(layer_1_delta)
+        layer_1_delta *= relu_deriv(kernel_layer)
 
         temp1 = int(len(kernel_layer))
         temp2 = int(len(kernel_layer[0]))
